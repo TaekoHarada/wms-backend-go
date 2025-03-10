@@ -57,15 +57,16 @@ func GetProductByID(c *gin.Context) {
 		Quantity int    `json:"quantity"`
 		Location string `json:"location"`
 		Category string `json:"category"`
+		CategoryID int  `json:"category_id"`
 	}
 
 	id := c.Param("id")
 	err := config.DB.QueryRow(`
-		SELECT p.id, p.sku, p.name, p.quantity, p.location, c.name
+		SELECT p.id, p.sku, p.name, p.quantity, p.location, c.name, c.id
 		FROM products p
 		LEFT JOIN categories c ON p.category_id = c.id
 		WHERE p.id = ?
-	`, id).Scan(&product.ID, &product.SKU, &product.Name, &product.Quantity, &product.Location, &product.Category)
+	`, id).Scan(&product.ID, &product.SKU, &product.Name, &product.Quantity, &product.Location, &product.Category, &product.CategoryID)
 	if err != nil {
 		log.Println("Database Error:", err)
 		c.JSON(http.StatusNotFound, gin.H{"message": "Product not found"})

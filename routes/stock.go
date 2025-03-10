@@ -69,7 +69,7 @@ func UpdateStock(c *gin.Context) {
 // 在庫履歴取得
 func GetStockHistory(c *gin.Context) {
 	rows, err := config.DB.Query(`
-        SELECT st.id, st.product_id, p.name AS product_name, st.type, st.quantity, st.transaction_date
+        SELECT st.id, st.product_id, p.name AS product_name,p.sku AS sku, st.type, st.quantity, st.transaction_date
         FROM stock_transactions st
         JOIN products p ON st.product_id = p.id
         ORDER BY st.transaction_date DESC
@@ -84,7 +84,7 @@ func GetStockHistory(c *gin.Context) {
 	var history []models.StockTransaction
 	for rows.Next() {
 		var record models.StockTransaction
-		if err := rows.Scan(&record.ID, &record.ProductID, &record.ProductName, &record.Type, &record.Quantity, &record.TransactionDate); err != nil {
+		if err := rows.Scan(&record.ID, &record.ProductID, &record.ProductName, &record.ProductSKU, &record.Type, &record.Quantity, &record.TransactionDate); err != nil {
 			log.Println("Scan Error:", err)
 			continue
 		}

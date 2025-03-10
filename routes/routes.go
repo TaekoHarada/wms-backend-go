@@ -10,7 +10,7 @@ func RegisterRoutes(router *gin.Engine) {
 	router.DELETE("/products/:id", DeleteProduct)
 
 	router.GET("/categories", GetAllCategories)
-	// router.POST("/categories", CreateCategory)
+	router.POST("/categories", CreateCategory)
 
 	router.POST("/stock/update", UpdateStock)
 	router.GET("/stock/history", GetStockHistory)

@@ -16,7 +16,7 @@ func RegisterRoutes(router *gin.Engine) {
 	router.GET("/stock/history", GetStockHistory)
 
 	router.GET("/summary", GetSummary)
-	// router.GET("/summary/low-stock", GetLowStockProducts)
-	// router.GET("/summary/recent-stock", GetRecentStockTransactions)
-	// router.GET("/summary/stock-trends", GetStockTrends)
+	router.GET("/summary/low-stock", GetLowStock)
+	router.GET("/summary/recent-stock", GetRecentStock)
+	router.GET("/summary/stock-trends", GetStockTrends)
 }
